@@ -2,8 +2,8 @@
   import { onMount, afterUpdate } from 'svelte';
   import { auth } from '$lib/firebase/firebase.js';
   import { goto } from '$app/navigation';
-  import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
-  import { getDatabase, ref, onValue, push } from 'firebase/database'; // Import Firebase Realtime Database functions
+  import { getDatabase, ref, onValue, push, remove ,set} from 'firebase/database';
+
   
   let users = [];
   let dataGrid;
@@ -11,6 +11,7 @@
   // Initialize Firebase
   const db = getDatabase();
   const usersRef = ref(db, 'users');
+
 
   onMount(() => {
     onValue(usersRef, (snapshot) => {
@@ -27,9 +28,16 @@
   const createDataGrid = () => {
     dataGrid = new DevExpress.ui.dxDataGrid('#dataGrid', {
       dataSource: users,
+     
       columns: [
         { dataField: 'firstName', caption: 'FirstName' },
         { dataField: 'lastName', caption: 'lastName' },
+        { dataField: 'assignemnt', caption: 'Assignment' },
+        { dataField: 'status', caption: 'Status' },
+        { dataField: 'remarks', caption: 'Remarks' },
+
+
+        
       ],
       showBorders: true,
       filterRow: {
@@ -53,6 +61,7 @@
           confirmDeleteMessage: 'Are you sure you want to delete this record?',
         },
       },
+      
       paging: {
         pageSize: 10,
       },
@@ -66,9 +75,21 @@
         const newData = e.data;
         // Push the new data to Firebase
         push(usersRef, newData);
-      },
-    });
+      },// Event handler for when a row is updated
+
+// Event handler for when a row is updated
+onRowUpdated: (e) => {
+  const updatedData = e.data;
+  // Get the key of the updated data in Firebase
+  const key = e.key.id; // Replace 'id' with your actual primary key field name
+  // Update the data in Firebase using the key
+  const userRef = ref(db, `users/${key}`);
+  set(userRef, updatedData);
+},
+
+});
   };
+  
 
   afterUpdate(() => {
     if (!dataGrid && users.length > 0) {
