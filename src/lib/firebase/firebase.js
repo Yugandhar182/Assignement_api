@@ -6,13 +6,13 @@ import { getAuth, setPersistence, inMemoryPersistence,browserSessionPersistence 
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBQh5M3IigEMBdzuTO8zx6L7W3Gx5OfXDA",
-    authDomain: "assignmentapi-bbfb3.firebaseapp.com",
-    databaseURL: "https://assignmentapi-bbfb3-default-rtdb.firebaseio.com",
-    projectId: "assignmentapi-bbfb3",
-    storageBucket: "assignmentapi-bbfb3.appspot.com",
-    messagingSenderId: "247967797269",
-    appId: "1:247967797269:web:9816b522590f26f84d7e1c"
+    apiKey: "AIzaSyDwN2QH09MS-IFaV-e-qxHMGkL-7kYnS_E",
+    authDomain: "authentication-db938.firebaseapp.com",
+    databaseURL: "https://authentication-db938-default-rtdb.firebaseio.com",
+    projectId: "authentication-db938",
+    storageBucket: "authentication-db938.appspot.com",
+    messagingSenderId: "1054749862129",
+    appId: "1:1054749862129:web:4e6c7134c71d391cb56150"
   };
 
 // Initialize Firebase
